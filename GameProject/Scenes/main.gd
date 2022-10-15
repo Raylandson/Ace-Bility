@@ -18,19 +18,23 @@ func _process(delta):
 func _input(event):
 	if event.is_action_pressed('pause') and not active:
 		pause_game()
+		GameEvents.emit_signal("started")
 	
 	if event.is_action_pressed("reset"):
 		if active:
 			pause_game()
 		reset_player()
+		GameEvents.emit_signal("reset")
 
 
 func pause_reset() -> void:
 	if active:
 		pause_game()
 		reset_player()
+		GameEvents.emit_signal("reset")
 	else:
 		pause_game()
+		GameEvents.emit_signal("started")
 
 func pause_game() -> void:
 	active = !active

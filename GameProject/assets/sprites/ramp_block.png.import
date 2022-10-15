@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rampa.jpg-1ad6f8bcb56ecf9826f56507b82561e0.stex"
+path="res://.import/ramp_block.png-0b7941f9c97bbc88e1201694c44ff972.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/rampa.jpg"
-dest_files=[ "res://.import/rampa.jpg-1ad6f8bcb56ecf9826f56507b82561e0.stex" ]
+source_file="res://assets/sprites/ramp_block.png"
+dest_files=[ "res://.import/ramp_block.png-0b7941f9c97bbc88e1201694c44ff972.stex" ]
 
 [params]
 

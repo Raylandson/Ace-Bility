@@ -5,26 +5,26 @@
 [ext_resource path="res://assets/sprites/remove_tile.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 96, 96 )
+extents = Vector2( 32, 32 )
 
 [node name="BlankBlock" type="Area2D"]
 z_index = 4
 script = ExtResource( 1 )
 
 [node name="BlockList" parent="." instance=ExtResource( 2 )]
-visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -224.0
+margin_left = -256.0
 margin_top = -224.0
-margin_right = -224.0
+margin_right = -256.0
 margin_bottom = -224.0
-rect_pivot_offset = Vector2( 224, 100 )
+rect_pivot_offset = Vector2( 256, 120 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="RemoveTile" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.392157 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
