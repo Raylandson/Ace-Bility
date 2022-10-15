@@ -24,9 +24,9 @@ texture = ExtResource( 1 )
 [node name="RightRay" type="RayCast2D" parent="."]
 position = Vector2( 0, 32 )
 enabled = true
-cast_to = Vector2( 0, 96 )
+cast_to = Vector2( 0, 112 )
 
 [node name="LeftRay" type="RayCast2D" parent="."]
 position = Vector2( 0, 32 )
 enabled = true
-cast_to = Vector2( 0, 96 )
+cast_to = Vector2( 0, 112 )
