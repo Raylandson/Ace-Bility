@@ -28,6 +28,9 @@ func _physics_process(delta):
 			elif $LeftRay.is_colliding() and sign(_velocity.x) == -1:
 #				printt(rotation, rotation + PI/smooth_climb * sign(floor_angle), floor_angle)
 				rotation = min(rotation + PI/smooth_climb , floor_angle)
+			elif is_equal_approx(0, floor_angle):
+				rotation = max((abs(rotation) + PI/smooth_climb) * sign(get_floor_normal().angle()), floor_angle)
+				
 #rotation = min(rotation, rota)
 #			prints(rotation, rotation + PI/10, get_floor_normal().angle() + PI/2)
 	else:

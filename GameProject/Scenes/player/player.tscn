@@ -22,11 +22,11 @@ scale = Vector2( 0.362931, -0.754947 )
 texture = ExtResource( 1 )
 
 [node name="RightRay" type="RayCast2D" parent="."]
-position = Vector2( 64, 32 )
+position = Vector2( 0, 32 )
 enabled = true
-cast_to = Vector2( 0, 64 )
+cast_to = Vector2( 0, 96 )
 
 [node name="LeftRay" type="RayCast2D" parent="."]
-position = Vector2( -64, 32 )
+position = Vector2( 0, 32 )
 enabled = true
-cast_to = Vector2( 0, 64 )
+cast_to = Vector2( 0, 96 )
