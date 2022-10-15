@@ -9,7 +9,7 @@ height = 6.39999
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-smooth = 100
+horizontal_velocity = -100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 10, 10 )
@@ -20,3 +20,13 @@ position = Vector2( 0.324362, 0.902644 )
 rotation = -3.14159
 scale = Vector2( 0.362931, -0.754947 )
 texture = ExtResource( 1 )
+
+[node name="RightRay" type="RayCast2D" parent="."]
+position = Vector2( 64, 32 )
+enabled = true
+cast_to = Vector2( 0, 64 )
+
+[node name="LeftRay" type="RayCast2D" parent="."]
+position = Vector2( -64, 32 )
+enabled = true
+cast_to = Vector2( 0, 64 )
