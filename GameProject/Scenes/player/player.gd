@@ -15,6 +15,7 @@ func _ready():
 func _physics_process(delta):
 	_velocity.y += gravity
 	_velocity.x = horizontal_velocity
+	self.horizontal_velocity += 1.5 * delta
 	
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)

@@ -1,28 +1,48 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://assets/sprites/cursor_r.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/background_tile.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/corner_block.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/smll_block.png" type="Texture" id=3]
 [ext_resource path="res://scenes/main.gd" type="Script" id=4]
 [ext_resource path="res://assets/sprites/ramp_block.png" type="Texture" id=5]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/blocks/blank_block/blank_block.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/sprites/background2.png" type="Texture" id=7]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=8]
-[ext_resource path="res://scenes/end_level/end_level.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scripts/score_manager.gd" type="Script" id=9]
+[ext_resource path="res://assets/sprites/brick_block.png.png" type="Texture" id=10]
+[ext_resource path="res://scripts/score_label.gd" type="Script" id=11]
+[ext_resource path="res://assets/sprites/remove_tile.png" type="Texture" id=12]
+[ext_resource path="res://scenes/cursor_icon.gd" type="Script" id=13]
+[ext_resource path="res://scenes/ui/block_list/block_list.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/sprites/bridge_block2.png" type="Texture" id=15]
+[ext_resource path="res://assets/resources/BenchNine-Light.ttf" type="DynamicFontData" id=16]
 
 [sub_resource type="OpenSimplexNoise" id=5]
-seed = -303
-octaves = 1
-period = 17.7
+period = 132.5
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="DynamicFont" id=9]
+size = 64
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=12]
 points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=13]
 points = PoolVector2Array( 0, 0, 128, 128, 256, 256, 0, 256 )
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
 
 [sub_resource type="TileSet" id=2]
 0/name = "smll_block.png 0"
@@ -35,14 +55,14 @@ points = PoolVector2Array( 0, 0, 128, 128, 256, 256, 0, 256 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
+0/shape = SubResource( 11 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 11 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -56,14 +76,14 @@ points = PoolVector2Array( 0, 0, 128, 128, 256, 256, 0, 256 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 3 )
+1/shape = SubResource( 12 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 12 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
@@ -77,45 +97,109 @@ points = PoolVector2Array( 0, 0, 128, 128, 256, 256, 0, 256 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 4 )
+2/shape = SubResource( 13 )
 2/shape_one_way = false
 2/shape_one_way_margin = 1.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 13 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
+3/name = "background_tile.png 3"
+3/texture = ExtResource( 1 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 0, 256, 256 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "background2.png 4"
+4/texture = ExtResource( 7 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 0, 256, 256 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape = SubResource( 14 )
+4/shape_one_way = false
+4/shape_one_way_margin = 1.0
+4/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+4/z_index = 0
+5/name = "brick_block.png.png 5"
+5/texture = ExtResource( 10 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 256, 256 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape = SubResource( 15 )
+5/shape_one_way = false
+5/shape_one_way_margin = 1.0
+5/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 15 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+5/z_index = 0
+6/name = "bridge_block2.png 6"
+6/texture = ExtResource( 15 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 256, 256 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape = SubResource( 16 )
+6/shape_one_way = false
+6/shape_one_way_margin = 1.0
+6/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+6/z_index = 0
+
+[sub_resource type="Environment" id=10]
+background_mode = 4
+dof_blur_near_distance = 1.55
+glow_enabled = true
+glow_intensity = 1.26
+glow_strength = 1.02
+glow_bloom = 0.09
+adjustment_brightness = 0.78
+adjustment_saturation = 0.01
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 4 )
 player = NodePath("Player")
 noise_test = SubResource( 5 )
-
-[node name="Interface" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Sprite" type="Sprite" parent="Interface"]
-position = Vector2( 512, 572 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-
-[node name="Sprite2" type="Sprite" parent="Interface"]
-position = Vector2( 29, 288 )
-texture = ExtResource( 1 )
-flip_h = true
-
-[node name="Sprite3" type="Sprite" parent="Interface"]
-position = Vector2( 512, 32 )
-rotation = 1.5708
-texture = ExtResource( 1 )
-flip_h = true
-
-[node name="Sprite4" type="Sprite" parent="Interface"]
-position = Vector2( 992, 288 )
-texture = ExtResource( 1 )
 
 [node name="Interface2" type="CanvasLayer" parent="."]
 
@@ -126,47 +210,59 @@ margin_right = 216.0
 margin_bottom = 87.0
 text = "Play / Reset"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 480, 384 )
-offset = Vector2( 0, -48 )
-current = true
-process_mode = 0
-smoothing_enabled = true
-smoothing_speed = 8.0
-editor_draw_limits = true
-script = ExtResource( 8 )
-player = NodePath("../Player")
+[node name="Label" type="Label" parent="Interface2"]
+margin_left = 800.0
+margin_top = 32.0
+margin_right = 1088.0
+margin_bottom = 76.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 9 )
+text = "SCORE: 0"
+script = ExtResource( 11 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+[node name="BlockList" parent="Interface2" instance=ExtResource( 14 )]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -256.0
+margin_right = 768.0
+margin_bottom = 600.0
+
+[node name="CursorIcon" type="Sprite" parent="Interface2"]
+scale = Vector2( 0.125, 0.125 )
+texture = ExtResource( 12 )
+script = ExtResource( 13 )
+
+[node name="Interface3" type="CanvasLayer" parent="."]
+layer = -5
+
+[node name="ColorRect" type="ColorRect" parent="Interface3"]
 margin_left = -1248.0
 margin_top = -800.0
 margin_right = 2176.0
 margin_bottom = 1440.0
 mouse_filter = 2
-color = Color( 0.443137, 0.576471, 0.823529, 1 )
-
-[node name="End_Level" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1056, 384 )
+color = Color( 0.423529, 0.690196, 1, 1 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
-color = Color( 1, 0.87451, 0.721569, 1 )
-
-[node name="BlankBlock" parent="." instance=ExtResource( 7 )]
-position = Vector2( 480, 480 )
-
-[node name="BlankBlock2" parent="." instance=ExtResource( 7 )]
-position = Vector2( 800, 480 )
-
-[node name="BlankBlock3" parent="." instance=ExtResource( 7 )]
-position = Vector2( 864, 480 )
+color = Color( 1, 0.839216, 0.67451, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-position = Vector2( 112, 368 )
-horizontal_velocity = 150.0
+position = Vector2( 256, 384 )
+horizontal_velocity = 100.0
 gravity = 5.0
 smooth_fall = 140
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 288, -32 )
+rotating = true
+current = true
+smoothing_speed = 8.0
+offset_h = 1.0
+editor_draw_limits = true
+script = ExtResource( 8 )
+player = NodePath("..")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2( 0.25, 0.25 )
@@ -174,5 +270,11 @@ tile_set = SubResource( 2 )
 cell_size = Vector2( 256, 256 )
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 format = 1
+
+[node name="ScoreManager" type="Node" parent="."]
+script = ExtResource( 9 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 10 )
 
 [connection signal="pressed" from="Interface2/Button" to="." method="pause_reset"]
