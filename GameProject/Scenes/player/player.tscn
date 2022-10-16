@@ -4,11 +4,15 @@
 [ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 6.4
-height = 6.39999
+radius = 4.8
+height = 9.6
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -96.0, 96.0 ],
+"_edit_vertical_guides_": [ -48.0, 48.0 ]
+}
 horizontal_velocity = -100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
