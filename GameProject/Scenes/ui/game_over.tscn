@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/resources/BenchNine-Light.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/smll_block.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/sprites/background_tile.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/bridge_block2.png" type="Texture" id=8]
 [ext_resource path="res://scenes/ui/game_over.gd" type="Script" id=9]
+[ext_resource path="res://assets/sprites/vignette.png" type="Texture" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, 0, 256, 0, 256, 256, 0, 256 )
@@ -151,7 +152,18 @@ shadow_size = 12
 [sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 1, 1, 1, 1 )
 
+[sub_resource type="Environment" id=17]
+background_mode = 4
+dof_blur_near_distance = 1.55
+glow_enabled = true
+glow_intensity = 1.26
+glow_strength = 1.02
+glow_bloom = 0.09
+adjustment_brightness = 0.78
+adjustment_saturation = 0.01
+
 [node name="GameOver" type="Control"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 9 )
@@ -163,6 +175,7 @@ anchor_bottom = 1.0
 color = Color( 0.423529, 0.690196, 1, 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 scale = Vector2( 0.25, 0.25 )
 tile_set = SubResource( 16 )
 cell_size = Vector2( 256, 256 )
@@ -248,10 +261,19 @@ custom_styles/normal = SubResource( 15 )
 text = "SAIR"
 
 [node name="Fade" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
+
+[node name="Vignette" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.533333 )
+position = Vector2( 512, 304 )
+scale = Vector2( 3.65714, 3.8481 )
+texture = ExtResource( 10 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 17 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer2/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer2/Quit" to="." method="_on_Quit_pressed"]

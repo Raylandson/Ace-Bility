@@ -9,13 +9,14 @@ export(int, 100, 1000) var smooth_fall : float = 300
 
 
 func _ready():
+	$Sprite/AnimatedSprite.play("default")
 	pass 
 
 
 func _physics_process(delta):
 	_velocity.y += gravity
 	_velocity.x = horizontal_velocity
-	self.horizontal_velocity += 1.5 * delta
+	self.horizontal_velocity += 1.75 * delta
 	
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)

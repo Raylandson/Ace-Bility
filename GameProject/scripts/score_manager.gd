@@ -7,4 +7,4 @@ func _ready():
 
 func _process(delta):
 	if Autoload.current_state == Autoload.ACTIVE:
-		Autoload.score += 20 * delta
+		Autoload.score += 10 * delta
