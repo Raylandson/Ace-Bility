@@ -8,7 +8,8 @@ var initial_rotation : float
 var block_types = {
 	'bridge' : 6,
 	'ramp' : 2,
-	'brick' : 5
+	'brick' : 5,
+	'transparent' : 7
 	#bridge deveria ser 6
 	#bloco normal deveria ser 0
 	#terra deveria ser 4
@@ -44,12 +45,15 @@ var obstacle_freq = randi() % 10 + 10
 var obstacle_len = randi() % 2 + 3
 
 
+
+var ramp_off = 0
+
+
 func generate_map():
 #	inicio = 0, 760
 	
 	for c in range(20000):
 		var perlin_test = noise_test.get_noise_2d(c, 0.0)
-#		print(perlin_test * 10)
 #		print(randi() % 20 + 20)
 		
 		hole_freq -= 1
@@ -57,21 +61,38 @@ func generate_map():
 			hole_freq = randi() % 30 + 30
 			hole_len = randi() % 2 + 4
 		
+#		print(700/64 - abs(perlin_test) * 10)
+		
+		
+		
 		if hole_freq > 0:
 			if hole_freq -5 > 0:
 				obstacle_freq -= 1
+			
 			if obstacle_freq < 0:
 				for a in range(1, obstacle_len + 1):
 					$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10 - a, block_types['brick'])
 					obstacle_freq = randi() % 10 + 10
 					obstacle_len = randi() % 2 + 4
 #					print(obstacle_len)
-					
+				
 			$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10, 0)
+			
+#			printt(ramp_off, floor(abs(perlin_test)))
+			if ramp_off != floor(abs(perlin_test * 10)):
+				if ramp_off > floor(abs(perlin_test * 10)):
+					$TileMap.set_cell(c- 1, 700/64 - abs(perlin_test) * 10 - 1, 7)
+				
+				elif ramp_off < floor(abs(perlin_test * 10)):
+					$TileMap.set_cell(c -1, 700/64 - abs(perlin_test) * 10, 7)
+#				printt(ramp_off, floor(abs(perlin_test * 10)))
+				ramp_off = floor(abs(perlin_test) * 10)
 		
 			for x in range(1, 12):
 				$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10 + x, 4)
-				pass
+		
+		else:
+			$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10, 7)
 
 
 
@@ -105,14 +126,18 @@ func _input(event):
 		var prev_tile = $TileMap.get_cell(mouse_pos.x/64 - 1, mouse_pos.y/64)
 		
 		
-		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile != $TileMap.INVALID_CELL and next_tile and current_block == 'ramp':
+		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile != $TileMap.INVALID_CELL and next_tile:
 			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], true)
 			if botton_tile != block_types['bridge']:
 				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, false)
 			
-		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile != $TileMap.INVALID_CELL and botton_tile == $TileMap.INVALID_CELL and current_block == 'bridge':
+		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile != $TileMap.INVALID_CELL and botton_tile == $TileMap.INVALID_CELL:
 			$TileMap.set_cellv(mouse_pos/64, block_types['bridge'], true)
-	
+		
+		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64)and botton_tile != $TileMap.INVALID_CELL and prev_tile != $TileMap.INVALID_CELL:
+			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], false)
+			
+			
 	if event.is_action_pressed('right_click'):
 		var mouse_pos = get_global_mouse_position()
 		var tile_type = $TileMap.get_cellv(mouse_pos/64)

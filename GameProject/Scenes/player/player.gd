@@ -18,6 +18,8 @@ func _physics_process(delta):
 	_velocity.x = horizontal_velocity
 	self.horizontal_velocity += 1.75 * delta
 	
+	if is_on_wall():
+		self.queue_free()
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)
 #	_velocity = _velocity.rotated(-rotation)
