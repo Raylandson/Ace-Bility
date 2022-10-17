@@ -1,8 +1,9 @@
 extends Node
 
-func _input(event):
-	if event.is_action_pressed("ui_end"):
-		game_over()
+
+func _ready():
+	GameEvents.connect("ended", self, "game_over")
+
 
 func game_over():
 	get_tree().paused = true
