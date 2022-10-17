@@ -9,13 +9,14 @@ export(int, 100, 1000) var smooth_fall : float = 300
 
 
 func _ready():
+	$Sprite/AnimatedSprite.play("default")
 	pass 
 
 
 func _physics_process(delta):
 	_velocity.y += gravity
 	_velocity.x = horizontal_velocity
-	self.horizontal_velocity += 1.5 * delta
+	self.horizontal_velocity += 1.75 * delta
 	
 	if is_on_wall():
 		self.queue_free()

@@ -19,12 +19,22 @@ export(String, 'bridge', 'ramp') var current_block = 'ramp'
 
 export(OpenSimplexNoise) var noise_test
 
+
 func _ready():
+	$Interface2/Fade.visible = true
+	
+	var tw = create_tween()
 	randomize()
 	initial_player_pos = player.global_position
 	initial_rotation = player.rotation
 	noise_test.seed = randi()
 	generate_map()
+	
+	GameEvents.emit_signal("started")
+	pause_game()
+
+	tw.tween_property($Interface2/Fade, "color", Color(0,0,0,0), 1.2).set_trans(Tween.TRANS_QUINT)
+
 
 
 
@@ -34,7 +44,10 @@ var hole_len = randi() % 6 + 2
 var obstacle_freq = randi() % 10 + 10
 var obstacle_len = randi() % 2 + 3
 
+
+
 var ramp_off = 0
+
 
 func generate_map():
 #	inicio = 0, 760
@@ -131,8 +144,6 @@ func _input(event):
 		if block_types['brick'] == tile_type:
 			$TileMap.set_cellv(mouse_pos/64, -1)
 	
-	if event.is_action_pressed("ui_end"):
-		game_over()
 
 func pause_reset() -> void:
 	if active:
@@ -151,7 +162,3 @@ func pause_game() -> void:
 func reset_player() -> void:
 	player.global_position = initial_player_pos
 	player.rotation = initial_rotation
-
-
-func game_over():
-	get_tree().change_scene("res://scenes/ui/game_over.tscn")

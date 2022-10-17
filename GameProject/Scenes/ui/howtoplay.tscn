@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/resources/BenchNine-Light.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/ui/howtoplay.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/vignette.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.196078, 0.270588, 1, 1 )
+draw_center = false
+corner_detail = 12
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Environment" id=5]
+background_mode = 4
+dof_blur_near_distance = 1.55
+glow_enabled = true
+glow_intensity = 1.26
+glow_strength = 1.02
+glow_bloom = 0.09
+adjustment_brightness = 0.78
+adjustment_saturation = 0.01
+
+[node name="Instruções" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.423529, 0.690196, 1, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 149.0
+margin_top = 101.0
+margin_right = 874.0
+margin_bottom = 498.0
+custom_constants/separation = 64
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 725.0
+margin_bottom = 333.0
+custom_constants/separation = 32
+
+[node name="MainLabel" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 725.0
+margin_bottom = 87.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Como jogar?"
+align = 1
+
+[node name="MainLabel2" type="Label" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 119.0
+margin_right = 725.0
+margin_bottom = 257.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Não deixe que o cadeirante se machuque.
+Clique com o mouse nos blocos vermelhos para construir o caminho.
+Clique com o mouse nas paredes para as quebrar."
+align = 1
+uppercase = true
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 289.0
+margin_right = 725.0
+margin_bottom = 333.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+text = "     VOLTAR     "
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_left = 362.0
+margin_top = 397.0
+margin_right = 362.0
+margin_bottom = 397.0
+size_flags_horizontal = 4
+
+[node name="Fade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Vignette" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.533333 )
+position = Vector2( 512, 304 )
+scale = Vector2( 3.65714, 3.8481 )
+texture = ExtResource( 3 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
