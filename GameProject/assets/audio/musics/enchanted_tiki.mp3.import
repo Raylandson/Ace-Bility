@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/enchanted_tiki.mp3-c740ca34827a99cc31067b1b931624b6.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/musics/enchanted_tiki.mp3"
+dest_files=[ "res://.import/enchanted_tiki.mp3-c740ca34827a99cc31067b1b931624b6.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

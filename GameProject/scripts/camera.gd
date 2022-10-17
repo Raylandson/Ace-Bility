@@ -15,17 +15,10 @@ var cam_vel = 600
 #	start_zoom = self.zoom
 
 
-func _process(delta):
-	if following_player == true:
-		self.global_position = lerp(self.global_position, player.global_position, 5*delta)
-	if Input.is_action_pressed("left"):
-		self.global_position.x += -cam_vel * delta
-	if Input.is_action_pressed("right"):
-		self.global_position.x += cam_vel * delta
-	if Input.is_action_pressed("down"):
-		self.global_position.y += cam_vel * delta
-	if Input.is_action_pressed("up"):
-		self.global_position.y += -cam_vel * delta
+#func _process(delta):
+#	self.zoom += Vector2(0.005, 0.005) * delta
+
+	
 	
 func reset_anim():
 	following_player = false

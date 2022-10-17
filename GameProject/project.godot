@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Accessibility"
+config/name="Path-Builder"
 run/main_scene="res://scenes/ui/main_menu.tscn"
 config/icon="res://icon.png"
 
@@ -31,7 +31,6 @@ Autoload="*res://scripts/autoload.gd"
 
 [display]
 
-window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [gui]

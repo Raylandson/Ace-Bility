@@ -76,7 +76,7 @@ func generate_map():
 				for a in range(1, obstacle_len + 1):
 					$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10 - a, block_types['brick'])
 					obstacle_freq = randi() % 10 + 10
-					obstacle_len = randi() % 2 + 4
+					obstacle_len = randi() % 1 + 3
 #					print(obstacle_len)
 				
 			$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10, 0)
@@ -99,7 +99,7 @@ func generate_map():
 
 
 func _process(delta):
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_pressed("click"):
 		var mouse_pos = get_global_mouse_position()
 		var player_pos = player.global_position
 		var not_in_player = abs(mouse_pos.x - player_pos.x) > 24 and abs(mouse_pos.y - player_pos.y) > 48
@@ -110,41 +110,33 @@ func _process(delta):
 		
 #		print(prev_tile)
 		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile in [0, 6] and next_tile:
+			
+			$Audio/Blop.play()
 			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], true)
 			if botton_tile != block_types['bridge']:
 				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, false)
 			
 		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile in [0, 4, 6] and botton_tile == $TileMap.INVALID_CELL:
+			$Audio/Blop.play()
 			$TileMap.set_cellv(mouse_pos/64, block_types['bridge'], true)
 		
 		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64)and botton_tile in [0, 6] and prev_tile in [0, 6]:
+			$Audio/Blop.play()
 			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], false)
+			if botton_tile != block_types['bridge']:
+				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, true)
 	
-	if Input.is_action_just_pressed("right_click"):
+	
+	if Input.is_action_pressed("click"):
 		var mouse_pos = get_global_mouse_position()
 		var tile_type = $TileMap.get_cellv(mouse_pos/64)
 		if block_types['brick'] == tile_type:
 			$TileMap.set_cellv(mouse_pos/64, -1)
+			$Audio/Build.play()
 
 
-func _input(event):
-	if event.is_action_pressed('pause') and not active:
-		pause_game()
-		GameEvents.emit_signal("started")
-	
-	if event.is_action_pressed("reset"):
-		if active:
-			pause_game()
-		reset_player()
-		GameEvents.emit_signal("reset")
-	
-	
-	if event.is_action_pressed("change_block"):
-		for key in block_types.keys():
-			if current_block != key:
-				current_block = key
-				break
-	
+#func _input(event):
+
 	
 #	if event.is_action_pressed("click"):
 #		var mouse_pos = get_global_mouse_position()

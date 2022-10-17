@@ -8,6 +8,7 @@ export(int, 10, 100) var smooth_climb : float = 100
 export(int, 100, 1000) var smooth_fall : float = 300
 
 var _initial_pos_x = self.global_position.x
+var t = 0
 
 func _ready():
 	$Sprite/AnimatedSprite.play("default")
@@ -20,12 +21,22 @@ func _physics_process(delta):
 	self.horizontal_velocity += 2.75 * delta
 	
 	
+	t += delta
+	if t >= 1.4:
+		$wheelsound.play()
+		t = 0
+		
 #	print(_velocity.x)
 	if _initial_pos_x != global_position.x:
 		_initial_pos_x = global_position.x
 	
 	else:
-		GameEvents.emit_signal("ended")
+		if not $crash.playing:
+			$crash.play()
+			var tw = create_tween()
+			tw.tween_property($Sprite, "scale", Vector2(1, 1), 0.3).from(Vector2(1.2, 1.2)).set_trans(Tween.TRANS_QUART)
+			yield(get_tree().create_timer(0.5, false), "timeout")
+			GameEvents.emit_signal("ended")
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)
 #	_velocity = _velocity.rotated(-rotation)
