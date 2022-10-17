@@ -28,6 +28,9 @@ func _ready():
 	initial_player_pos = player.global_position
 	initial_rotation = player.rotation
 	noise_test.seed = randi()
+#	noise_test.seed = 2124260735
+
+#	print(noise_test.seed)
 	generate_map()
 	
 	GameEvents.emit_signal("started")
@@ -81,7 +84,7 @@ func generate_map():
 #			printt(ramp_off, floor(abs(perlin_test)))
 			if ramp_off != floor(abs(perlin_test * 10)):
 				if ramp_off > floor(abs(perlin_test * 10)):
-					$TileMap.set_cell(c- 1, 700/64 - abs(perlin_test) * 10 - 1, 7)
+					$TileMap.set_cell(c , 700/64 - abs(perlin_test) * 10 - 1, 7)
 				
 				elif ramp_off < floor(abs(perlin_test * 10)):
 					$TileMap.set_cell(c -1, 700/64 - abs(perlin_test) * 10, 7)
@@ -92,9 +95,36 @@ func generate_map():
 				$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10 + x, 4)
 		
 		else:
-			$TileMap.set_cell(c, 700/64 - abs(perlin_test) * 10, 7)
+			$TileMap.set_cell(c, 700/64 - (ramp_off + 1), 7)
 
 
+func _process(delta):
+	if Input.is_action_just_pressed("click"):
+		var mouse_pos = get_global_mouse_position()
+		var player_pos = player.global_position
+		var not_in_player = abs(mouse_pos.x - player_pos.x) > 24 and abs(mouse_pos.y - player_pos.y) > 48
+		
+		var botton_tile = $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64 + 1)
+		var next_tile : bool = not $TileMap.get_cell(mouse_pos.x/64 + 1, mouse_pos.y/64)
+		var prev_tile = $TileMap.get_cell(mouse_pos.x/64 - 1, mouse_pos.y/64)
+		
+#		print(prev_tile)
+		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile in [0, 6] and next_tile:
+			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], true)
+			if botton_tile != block_types['bridge']:
+				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, false)
+			
+		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile in [0, 4, 6] and botton_tile == $TileMap.INVALID_CELL:
+			$TileMap.set_cellv(mouse_pos/64, block_types['bridge'], true)
+		
+		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64)and botton_tile in [0, 6] and prev_tile in [0, 6]:
+			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], false)
+	
+	if Input.is_action_just_pressed("right_click"):
+		var mouse_pos = get_global_mouse_position()
+		var tile_type = $TileMap.get_cellv(mouse_pos/64)
+		if block_types['brick'] == tile_type:
+			$TileMap.set_cellv(mouse_pos/64, -1)
 
 
 func _input(event):
@@ -116,33 +146,33 @@ func _input(event):
 				break
 	
 	
-	if event.is_action_pressed("click"):
-		var mouse_pos = get_global_mouse_position()
-		var player_pos = player.global_position
-		var not_in_player = abs(mouse_pos.x - player_pos.x) > 24 and abs(mouse_pos.y - player_pos.y) > 48
-		
-		var botton_tile = $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64 + 1)
-		var next_tile : bool = not $TileMap.get_cell(mouse_pos.x/64 + 1, mouse_pos.y/64)
-		var prev_tile = $TileMap.get_cell(mouse_pos.x/64 - 1, mouse_pos.y/64)
-		
-		
-		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile != $TileMap.INVALID_CELL and next_tile:
-			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], true)
-			if botton_tile != block_types['bridge']:
-				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, false)
-			
-		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile != $TileMap.INVALID_CELL and botton_tile == $TileMap.INVALID_CELL:
-			$TileMap.set_cellv(mouse_pos/64, block_types['bridge'], true)
-		
-		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64)and botton_tile != $TileMap.INVALID_CELL and prev_tile != $TileMap.INVALID_CELL:
-			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], false)
-			
-			
-	if event.is_action_pressed('right_click'):
-		var mouse_pos = get_global_mouse_position()
-		var tile_type = $TileMap.get_cellv(mouse_pos/64)
-		if block_types['brick'] == tile_type:
-			$TileMap.set_cellv(mouse_pos/64, -1)
+#	if event.is_action_pressed("click"):
+#		var mouse_pos = get_global_mouse_position()
+#		var player_pos = player.global_position
+#		var not_in_player = abs(mouse_pos.x - player_pos.x) > 24 and abs(mouse_pos.y - player_pos.y) > 48
+#
+#		var botton_tile = $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64 + 1)
+#		var next_tile : bool = not $TileMap.get_cell(mouse_pos.x/64 + 1, mouse_pos.y/64)
+#		var prev_tile = $TileMap.get_cell(mouse_pos.x/64 - 1, mouse_pos.y/64)
+#
+#		print(prev_tile)
+#		if $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and botton_tile in [0, 6] and next_tile:
+#			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], true)
+#			if botton_tile != block_types['bridge']:
+#				$TileMap.set_cell(mouse_pos.x/64, mouse_pos.y/64 + 1, 1, false)
+#
+#		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64) and prev_tile in [0, 4, 6] and botton_tile == $TileMap.INVALID_CELL:
+#			$TileMap.set_cellv(mouse_pos/64, block_types['bridge'], true)
+#
+#		elif $TileMap.get_cell(mouse_pos.x/64, mouse_pos.y/64)and botton_tile in [0, 6] and prev_tile == 0:
+#			$TileMap.set_cellv(mouse_pos/64, block_types['ramp'], false)
+#
+#
+#	if event.is_action_pressed('right_click'):
+#		var mouse_pos = get_global_mouse_position()
+#		var tile_type = $TileMap.get_cellv(mouse_pos/64)
+#		if block_types['brick'] == tile_type:
+#			$TileMap.set_cellv(mouse_pos/64, -1)
 	
 
 func pause_reset() -> void:

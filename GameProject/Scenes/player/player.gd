@@ -7,6 +7,7 @@ export(float) var gravity : float = 20
 export(int, 10, 100) var smooth_climb : float = 100
 export(int, 100, 1000) var smooth_fall : float = 300
 
+var _initial_pos_x = self.global_position.x
 
 func _ready():
 	$Sprite/AnimatedSprite.play("default")
@@ -18,7 +19,12 @@ func _physics_process(delta):
 	_velocity.x = horizontal_velocity
 	self.horizontal_velocity += 2.75 * delta
 	
-	if is_on_wall():
+	
+#	print(_velocity.x)
+	if _initial_pos_x != global_position.x:
+		_initial_pos_x = global_position.x
+	
+	else:
 		GameEvents.emit_signal("ended")
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)
