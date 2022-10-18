@@ -12,13 +12,12 @@ var t = 0
 
 func _ready():
 	$Sprite/AnimatedSprite.play("default")
-	pass 
 
 
 func _physics_process(delta):
 	_velocity.y += gravity
 	_velocity.x = horizontal_velocity
-	self.horizontal_velocity += 2.75 * delta
+	self.horizontal_velocity = max(2.75 * delta + horizontal_velocity, 250)
 	
 	
 	t += delta
@@ -26,7 +25,6 @@ func _physics_process(delta):
 		$wheelsound.play()
 		t = 0
 		
-#	print(_velocity.x)
 	if _initial_pos_x != global_position.x:
 		_initial_pos_x = global_position.x
 	
@@ -39,25 +37,21 @@ func _physics_process(delta):
 			GameEvents.emit_signal("ended")
 	
 	_velocity = move_and_slide_with_snap(_velocity.rotated(rotation), transform.y * 1, -transform.y,  true, 4, PI/3)
-#	_velocity = _velocity.rotated(-rotation)
+	
 	if is_on_floor():
-#		rotation = get_floor_normal().angle() + PI/2
 		var floor_angle = get_floor_normal().angle() + PI/2
+		
 		if $Sprite.rotation != floor_angle:
-#			rotation.linear_interpolate()
 			if $RightRay.is_colliding() and sign(_velocity.x) == 1:
 				$Sprite.rotation = max((abs($Sprite.rotation) + PI/smooth_climb) * sign(get_floor_normal().angle()), floor_angle)
+			
 			elif $LeftRay.is_colliding() and sign(_velocity.x) == -1:
-#				printt(rotation, rotation + PI/smooth_climb * sign(floor_angle), floor_angle)
 				$Sprite.rotation = min($Sprite.rotation + PI/smooth_climb , floor_angle)
-#			elif is_equal_approx(0, floor_angle):
-#				rotation = max((abs(rotation) + PI/smooth_climb) * sign(get_floor_normal().angle()), floor_angle)
-				
-#rotation = min(rotation, rota)
-#			prints(rotation, rotation + PI/10, get_floor_normal().angle() + PI/2)
+			
 	elif not $LeftRay.is_colliding():
 		if sign(_velocity.x) == 1:
 			$Sprite.rotation = min(0, $Sprite.rotation + PI/smooth_fall * sign(_velocity.x))
+		
 		else:
 			$Sprite.rotation = max(0, $Sprite.rotation + PI/smooth_fall * sign(_velocity.x))
 

@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Path-Builder"
+config/name="Path-Runner"
 run/main_scene="res://scenes/ui/main_menu.tscn"
 config/icon="res://icon.png"
 

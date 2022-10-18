@@ -16,10 +16,12 @@ var cam_vel = 600
 
 
 #func _process(delta):
-#	self.zoom += Vector2(0.005, 0.005) * delta
+##	self.zoom += Vector2(0.005, 0.005) * delta
+#
+#	drag_margin_bottom = 0 if player.is_on_floor() else 1
+#	drag_margin_top = 0 if player.is_on_floor() else 1
 
-	
-	
+
 func reset_anim():
 	following_player = false
 	var tw = create_tween().set_parallel(true)
