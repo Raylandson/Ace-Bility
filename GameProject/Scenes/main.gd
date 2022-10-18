@@ -4,7 +4,7 @@ onready var active = false
 export(NodePath) onready var player = get_node(player)
 var initial_player_pos := Vector2.ZERO
 var initial_rotation : float
-var poste_pai = load('res://Scenes/blocks/poste.tscn')
+var poste_pai = load('res://scenes/blocks/poste.tscn')
 
 var block_types = {
 	'bridge' : 6,

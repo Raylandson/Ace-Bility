@@ -7,7 +7,7 @@ export(float) var gravity : float = 20
 export(int, 10, 100) var smooth_climb : float = 100
 export(int, 100, 1000) var smooth_fall : float = 300
 
-var _initial_pos_x = self.global_position.x
+onready var _initial_pos_x = self.global_position.x -1
 var t = 0
 
 func _ready():
@@ -31,6 +31,7 @@ func _physics_process(delta):
 	else:
 		if not $crash.playing:
 			$crash.play()
+			$Sprite/PlayerBaseSprite.texture = load("res://assets/sprites/player/sketch1666028383899.png")
 			var tw = create_tween()
 			tw.tween_property($Sprite, "scale", Vector2(1, 1), 0.3).from(Vector2(1.2, 1.2)).set_trans(Tween.TRANS_QUART)
 			yield(get_tree().create_timer(0.5, false), "timeout")

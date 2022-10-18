@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/sprites/player/sketch1665965317702.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Player/player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/player/player.gd" type="Script" id=2]
 [ext_resource path="res://assets/sprites/player/sketch1665964727780.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/player/sketch1665964459937.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/player/sketch1665964859821.png" type="Texture" id=5]
@@ -27,7 +27,6 @@ __meta__ = {
 "_edit_horizontal_guides_": [ -96.0, 96.0 ],
 "_edit_vertical_guides_": [ -48.0, 48.0 ]
 }
-horizontal_velocity = -100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2, 11 )

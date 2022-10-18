@@ -19,7 +19,7 @@ func _on_Button_pressed():
 	tw.tween_property($Fade/Fade, "color", Color(0,0,0,1), 0.8).set_trans(Tween.TRANS_QUINT)
 	yield(tw, "finished")
 	
-	get_tree().change_scene("res://scenes/main.tscn")
+	get_tree().change_scene("res://scenes/Main.tscn")
 	
 	
 func _on_Quit_pressed():
